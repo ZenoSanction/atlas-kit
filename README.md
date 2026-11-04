@@ -100,7 +100,7 @@ once the tools were added.
 | Settings > TTS | Streaming split mode | `sentence` |
 | Settings > STT | Model size | `small.en` |
 | Chat sidebar > voice | Voice / speed | `bm_george` / `1.0` |
-| Settings > Wakeword | Wake word | on |
+| Settings > Wakeword | Wake word | on (it listens for "Hey Sapphire") |
 | Settings > Conversation | Conversation start words | `atlas, hey atlas, okay atlas` |
 
 Voice on the CPU matters: on the GPU, Kokoro slowly grows until it pushes Strata out of video memory, and speed falls
@@ -141,12 +141,12 @@ hermes config set model.default qwen3.8-flash-next-iq3_xxs
 
 ### 7. Make him Atlas
 
-1. **Prompts:** create a prompt named `atlas` and paste in `atlas_persona_prompt.txt`.
-2. **Toolsets:** create a toolset named `atlas`. Turn on the `mcp:hermes_tools` tools plus Sapphire's memory and
-   knowledge tools (save_memory, search_memory, update_memory, save_knowledge, search_knowledge, delete_knowledge),
-   web_search, set_alarm, schedule_task and reset_chat.
-3. **Personas:** create a persona named `Atlas`: prompt `atlas`, toolset `atlas`, voice `bm_george`, LLM `Strata`,
-   date and time on. Make it your default persona.
+1. **Prompts:** create a prompt named `atlas_kit` and paste in `atlas_persona_prompt.txt`.
+2. **Toolsets:** create a toolset named `atlas_kit`. Turn on the 7 `mcp:hermes_tools` tools plus Sapphire's memory
+   and knowledge tools (save_memory, search_memory, delete_memory, save_knowledge, search_knowledge,
+   delete_knowledge), web_search, set_alarm, schedule_task and reset_chat: 17 tools in all.
+3. **Personas:** create a persona named `Atlas Kit` (Sapphire stores it as `atlas_kit`): prompt `atlas_kit`, toolset
+   `atlas_kit`, voice `bm_george`, LLM `Strata`, date and time on. Make it your default persona.
 4. **Settings > Tools:** max tool iterations `25`. (The bridge already keeps each tool result under 8,000 characters.)
 
 ### 8. Every day
@@ -175,7 +175,7 @@ If it can't find Sapphire, open `Start-Atlas.bat` in Notepad and set `SAPPHIRE_D
 | The Hermes app says the model can't do tool calls | Run the three `hermes config set` commands in step 5. Then check `curl.exe http://127.0.0.1:8080/props` (add `-H "Authorization: Bearer YOUR_KEY"` if you set a key): under `chat_template_caps`, `supports_tools` and `supports_tool_calls` must be `true`. If not, run Strata's `UPDATE.bat`. |
 | The model writes a tool call as text instead of running it | Add `"tool_call_recovery": true,` to `strata-<size>.json` and restart Strata. |
 | hermes_tools shows a red dot | Check the Command path to Hermes's `python.exe`, and that the kit is in a folder with no spaces. Click reconnect. |
-| Atlas doesn't use his tools | **Toolsets:** turn the `mcp:hermes_tools` tools on in the `atlas` toolset, and check the Atlas persona uses it. |
+| Atlas doesn't use his tools | **Toolsets:** turn the `mcp:hermes_tools` tools on in the `atlas_kit` toolset, and check the Atlas Kit persona uses it. |
 | A tool "is still running" | Sapphire stops every tool after 30 seconds. Ask Atlas to run long jobs in the background. |
 | Speed drops to ~30 tokens a second | Something else is using the graphics card: Kokoro on the GPU (set it to cpu), or a game. |
 | Strata stops, or "out of memory" | Close your browser, Discord and games: RAM is the real limit. Set the Windows page file to a fixed size, such as 64 GB. |
