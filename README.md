@@ -157,6 +157,10 @@ To shut down: close the Sapphire window first, then Strata's.
 If it can't find Sapphire, open `Start-Atlas.bat` in Notepad and set `SAPPHIRE_DIR` (the folder with Sapphire's
 `main.py`) and `SAPPHIRE_PY` (the `python.exe` of Sapphire's environment) at the top.
 
+It opens Atlas in your default browser. To pick one, set `BROWSER` at the top of `Start-Atlas.bat` to `msedge`,
+`chrome` or `firefox`. Browsers can use a lot of memory, and memory is what Strata needs most, so keep it to Atlas's
+one tab.
+
 ## Safety: read this
 
 - The **terminal** tool runs real commands on your PC with your account's rights. The guard blocks Windows system files,

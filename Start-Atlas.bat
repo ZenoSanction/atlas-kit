@@ -16,6 +16,8 @@ rem Free memory Strata wants before it starts, in GB. 64 GB PC: about 40 for IQ3
 if not defined MIN_FREE_GB set "MIN_FREE_GB=40"
 if not defined ATLAS_URL set "ATLAS_URL=https://localhost:8073"
 if not defined OPEN_BROWSER set "OPEN_BROWSER=1"
+rem Browser to open Atlas in: empty = your default browser, or msedge, chrome or firefox.
+if not defined BROWSER set "BROWSER="
 if not defined STRATA_WAIT_MIN set "STRATA_WAIT_MIN=5"
 if not defined SAPPHIRE_WAIT_MIN set "SAPPHIRE_WAIT_MIN=3"
 rem ==============================================================================================
@@ -105,7 +107,7 @@ echo  ready.
 :open_ui
 if "%OPEN_BROWSER%"=="1" (
   echo   [3/3] Opening Atlas in your browser.
-  start "" "%ATLAS_URL%"
+  if defined BROWSER (start "" "%BROWSER%" "%ATLAS_URL%") else (start "" "%ATLAS_URL%")
 ) else (
   echo   [3/3] Atlas is at %ATLAS_URL%
 )
