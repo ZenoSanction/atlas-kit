@@ -1,0 +1,4 @@
+# The bridge's call log (it holds your own paths and commands)
+logs/
+__pycache__/
+*.pyc

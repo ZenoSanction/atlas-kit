@@ -1,0 +1,64 @@
+{
+  "_comment": "Atlas Kit - settings for hermes_tools_bridge.py. Changes apply on the next tool call (no restart), except 'tools', which needs Sapphire's reconnect button. Paths are matched with forward slashes, case-insensitive. The guard is a safety net, not a sandbox.",
+  "tools": [
+    "terminal",
+    "process_manage",
+    "read_file",
+    "write_file",
+    "patch",
+    "search_files",
+    "browser_exec"
+  ],
+  "_tools_note": "Remove 'terminal' and 'process_manage' to stop Atlas running commands. Add 'vision_analyze' only after you turn on Strata's vision and point Hermes's auxiliary vision at Strata.",
+  "hermes_dir": "",
+  "_hermes_dir_note": "Empty = %LOCALAPPDATA%\\hermes\\hermes-agent (Hermes's normal install folder).",
+  "start_dir": "",
+  "_start_dir_note": "Folder commands start in. Empty = your Documents folder.",
+  "task_id": "atlas",
+  "call_timeout_sec": 25,
+  "_timeout_note": "Sapphire gives up on any tool after 30 seconds, so keep this below 30. Long jobs: run them in the background.",
+  "max_result_chars": 8000,
+  "log_file": "",
+  "_log_note": "Empty = logs\\hermes_tools.log next to the bridge. Every call is logged: what ran and what was blocked.",
+  "secret_line_pattern": "(?i)(asplaintext|securestring|password|passwd|\\bpwd\\b|api[_-]?key|apikey|token|secret|webhook|authorization|bearer|private[_-]?key|license[_-]?key|(bridge|chat|shared|auth|access|server|client|master|signing)[_-]?key|sk-ant-|\\bsk-[A-Za-z0-9]{20,}|xox[abp]-|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})",
+  "blocked": [
+    {
+      "why": "Windows system files",
+      "contains": [
+        "c:/windows",
+        "/c/windows",
+        "%windir%",
+        "%systemroot%",
+        "$env:windir",
+        "$env:systemroot",
+        "system32",
+        "syswow64"
+      ]
+    },
+    {
+      "why": "changing the Windows registry",
+      "_note": "Reading the registry is allowed; every change is blocked.",
+      "regex": [
+        "\\bregedit",
+        "\\breg(\\.exe)?\\s+(add|delete|import|copy|save|restore|load|unload)\\b",
+        "(set|new|remove|rename|clear|move|copy)-item(property)?\\b[^\\n]*(hk(lm|cu|cr|u|cc):|registry::|hkey_)",
+        "(hk(lm|cu|cr|u|cc):|registry::|hkey_)[^\\n]*(set|new|remove|rename|clear|move|copy)-item(property)?\\b",
+        "microsoft\\.win32\\.registry[^\\n]*(setvalue|createsubkey|deletesubkey|deletevalue|deletesubkeytree)",
+        "\\bwinreg\\b[^\\n]*(setvalue|createkey|deletekey|deletevalue)"
+      ]
+    },
+    {
+      "why": "stored passwords and keys",
+      "_note": "Add any file or folder that holds your passwords or keys here.",
+      "contains": [
+        "lan_api_key",
+        "hermes/.env",
+        "/.ssh",
+        "cmdkey",
+        "vaultcmd",
+        "storedcredential",
+        "hermes_tools_config"
+      ]
+    }
+  ]
+}
