@@ -13,7 +13,7 @@ Atlas is three free, open-source programs working as one assistant, plus the sma
 | Hands | [Hermes Agent](https://hermes-agent.nousresearch.com) | its tool code: terminal, files, web browser |
 | **This kit** | | the bridge that gives Sapphire Hermes's tools, the Atlas persona, and a one-click start file |
 
-This kit goes with the video **"Build Atlas: a complete local AI assistant on your gaming PC"**. Every step below is
+This kit goes with the video **["Build Atlas: a complete local AI assistant on your gaming PC"](https://www.youtube.com/watch?v=MpHyj0t5M2o)**. Every step below is
 shown in it.
 
 ## What's in the kit
